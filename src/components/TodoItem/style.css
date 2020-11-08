@@ -1,0 +1,29 @@
+.todo-item input {
+  margin-right: .75rem;
+}
+
+.todo-item label {
+  font-size: 1.5rem;
+  margin-right: .75rem;
+}
+
+.todo-item button {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  transition: filter .1s;
+}
+
+.todo-item button svg {
+  vertical-align: text-bottom;
+}
+
+.todo-item button:hover {
+  filter: brightness(.5);
+}
+
+.todo-item button:active {
+  transform: scale(.9);
+}
