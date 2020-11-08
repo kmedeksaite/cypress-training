@@ -27,3 +27,7 @@
 .todo-item button:active {
   transform: scale(.9);
 }
+
+.striked {
+  text-decoration: line-through;
+}
