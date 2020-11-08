@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FiX } from 'react-icons/fi';
 
 import './style.css';
-
+// Persist checked
 function TodoItem({ onDelete, itemId, itemDescription}) {
   const [isChecked, setIsChecked] = useState(false);
 
