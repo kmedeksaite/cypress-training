@@ -16,7 +16,7 @@ In this training, you will learn the first steps of setting up the E2E testing t
 
 This repository contains a simple to-do web application developed with ReactJS that you will use to run your tests against. The principles of what you will learn should work with any front-end frameworks.
 
- ## Instructions
+ ## :world_map: Instructions
 
 During the training I will walk you through setting up Cypress and writing your first test cases. If you get lost, please refer to this section. All information you need will be found here.
 
@@ -32,6 +32,6 @@ After you sucessfully cloned your forked repository run: `npm i` or `yarn` (this
 
 To start the application all you need to do is run `npm start` or `yarn start`. It then will available locally at `http://localhost:3000`. It should look something like this:
 
-<img src="./assets/todo-testing.gif" style="display:block; width:50%; margin: 20px auto; border-radius: 8px; border: 2px solid #333">
+![](./assets/todo-testing.gif)
 
 Now that our app is working, let's focus in setting up cypress. Run `npm i cypress` or `yarn add cypress`.
