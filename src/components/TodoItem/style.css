@@ -31,3 +31,7 @@
 .striked {
   text-decoration: line-through;
 }
+
+.todo-item + .todo-item {
+  margin-top: 20px;
+}

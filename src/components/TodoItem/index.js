@@ -1,25 +1,20 @@
-import { useState } from 'react';
 import { FiX } from 'react-icons/fi';
 
 import './style.css';
-// Persist checked
-function TodoItem({ onDelete, itemId, itemDescription}) {
-  const [isChecked, setIsChecked] = useState(false);
 
+function TodoItem({ item, onDelete, onCheck }) {
   function handleBoxClick() {
-    const toggledValue = !isChecked;
-
-    setIsChecked(toggledValue);
+    onCheck(item.id)
   }
 
   function handleDelete() {
-    onDelete(itemId)
+    onDelete(item.id)
   }
 
   return (
     <div className="todo-item">
-      <input type="checkbox" name={itemId} id={itemId} checked={isChecked} onClick={handleBoxClick} />
-      <label htmlFor={itemId} className={isChecked ? 'striked' : ''}>{itemDescription}</label>
+      <input type="checkbox" name={item.id} id={item.id} checked={item.checked} onClick={handleBoxClick} />
+      <label htmlFor={item.id} className={item.checked ? 'striked' : ''}>{item.description}</label>
       <button onClick={handleDelete}><FiX /></button>
     </div>
   )

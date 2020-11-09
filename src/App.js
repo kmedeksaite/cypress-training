@@ -1,3 +1,4 @@
+import { randomBytes } from 'crypto';
 import { useState, useEffect } from 'react';
 import { FiPlus } from 'react-icons/fi';
 
@@ -6,7 +7,7 @@ import TodoInput from './components/TodoItem';
 import './App.css';
 
 function App() {
-  const [newItem, setNewItem] = useState('');
+  const [description, setDescription] = useState('');
   const [todos, setTodos] = useState(() => {
     const storedTodos = localStorage.getItem('@todo-testing:todos');
 
@@ -22,19 +23,37 @@ function App() {
   function handleAddTodo(event) {
     event.preventDefault();
 
-    if (!newItem) {
+    if (!description) {
       alert('Please, enter a todo item.');
       return;
     }
 
-    setTodos([...todos, newItem]);
-    setNewItem('');
+    const newTodo = {
+      id: randomBytes(4).toString('hex'),
+      description,
+      checked: false,
+    }
+
+    setTodos([...todos, newTodo]);
+    setDescription('');
   }
 
   function deleteItem(itemId) {
-    const allTodos = [...todos].filter((_, index) => index !== itemId);
+    const allTodos = [...todos].filter(item => item.id !== itemId);
 
     setTodos([...allTodos]);    
+  }
+
+  function checkItem(itemId) {
+    const allTodos = [...todos].map(item => {
+      if (item.id === itemId) {
+        item.checked = !item.checked
+      }
+
+      return item;
+    });
+
+    setTodos([...allTodos]);
   }
 
   return (
@@ -47,15 +66,15 @@ function App() {
           name="add-todo"
           id="add-todo"
           placeholder="add new todo..."
-          value={newItem}
-          onChange={e => setNewItem(e.target.value)}
+          value={description}
+          onChange={e => setDescription(e.target.value)}
         />
         <button type="submit"><FiPlus /></button>
       </form>
 
 
-      {todos.map((item, index) => (
-        <TodoInput itemDescription={item} itemId={index} onDelete={deleteItem} />
+      {todos.map((item) => (
+        <TodoInput key={item.id} item={item} onCheck={checkItem} onDelete={deleteItem} className="item" />
       ))}
     </div>
   )
