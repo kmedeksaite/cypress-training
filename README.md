@@ -12,7 +12,7 @@ In this training, you will learn the first steps of setting up the E2E testing t
  - [Introduction to Cypress](https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.html#Cypress-Can-Be-Simple-Sometimes)
  - [Cypress in a Nutshell](https://www.youtube.com/watch?reload=9&v=LcGHiFnBh3Y)
  - [How to Test Your Frontend with the Cypress.io Framework](https://medium.com/free-code-camp/how-to-test-your-frontend-with-the-cypress-io-framework-f048070f4330)
- - [Testing Tips](./testing-tips.md)
+ - [Testing Tips](./assets/testing-tips.md)
 
 This repository contains a simple to-do web application developed with ReactJS that you will use to run your tests against. The principles of what you will learn should work with any front-end frameworks.
 
