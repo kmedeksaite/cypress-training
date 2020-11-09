@@ -72,10 +72,11 @@ function App() {
         <button type="submit"><FiPlus /></button>
       </form>
 
-
-      {todos.map((item) => (
-        <TodoInput key={item.id} item={item} onCheck={checkItem} onDelete={deleteItem} className="item" />
-      ))}
+      <div className="todos">
+        {todos.map((item) => (
+          <TodoInput key={item.id} item={item} onCheck={checkItem} onDelete={deleteItem} className="item" />
+        ))}
+      </div>
     </div>
   )
 }

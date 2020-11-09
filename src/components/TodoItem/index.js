@@ -13,7 +13,7 @@ function TodoItem({ item, onDelete, onCheck }) {
 
   return (
     <div className="todo-item">
-      <input type="checkbox" name={item.id} id={item.id} checked={item.checked} onClick={handleBoxClick} />
+      <input type="checkbox" name={item.id} id={item.id} checked={item.checked} onChange={handleBoxClick} />
       <label htmlFor={item.id} className={item.checked ? 'striked' : ''}>{item.description}</label>
       <button onClick={handleDelete}><FiX /></button>
     </div>
