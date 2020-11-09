@@ -32,5 +32,5 @@ test multiple times.
 ## Contributors
 
 Special thanks to:
- - @DoctorLugubrious
- - @drew-royster
+ - [Avery Green](https://github.com/DoctorLugubrious)
+ - [Drew Royster](https://github.com/drew-royster)
