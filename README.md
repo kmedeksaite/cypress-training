@@ -34,4 +34,55 @@ To start the application all you need to do is run `npm start` or `yarn start`. 
 
 ![](./assets/todo-testing.gif)
 
-Now that our app is working, let's focus in setting up cypress. Run `npm i cypress` or `yarn add cypress`.
+Now that our app is working, let's focus in setting up cypress. Run `npm i cypress -D` or `yarn add -D cypress`.
+
+Cypress is now installed. Now, add these scripts to `package.json`: `"cypress": "cypress open"` and `"cy:test": "cypress run"`. These scripts will make our lives easier when we need to open the Cypress UI or execute tests in headless mode.
+
+After adding the scripts, run `npm run cypress` or `yarn cypress`. There will be a small setup that cypress will arrange for you automatically. After the setup is done you should see a cypress window opened, a new file, and a new folder in your project. You new project structure will be:
+
+```
+/
+  ...
+  cypress/
+    fixtures/
+      example.json/
+    integration/
+      examples/
+    plugins/
+      index.js
+    support/
+      commands.js
+      index.js
+  ...
+  cypress.json
+  ...  
+```
+
+Cypress add a bunch of example files to help you get started and learn about the purpose of each folder and file. In summary:
+
+- **cypress/** : All files related to cypress and its set up will go inside this folder. Think of it as your "tests" folder.
+- **cypress/fixtures** : Here you will put all files that represent "dummy data" that you will stub out for your front-end. These are written in JSON, and are great way to stub informationt that will be used to fill a form, for example.
+- **cypress/integration** : This is where your test cases will go. In cypress tests are called specs, and each spec can contain several test cases.
+- **cypress/plugins** : There are hundreds of plugins that you can install to work with cypress. When you add these plugins to your project you will set up them in files that are kept here.
+- **cypress/support** : Any custom commands or simple abstractions can be written in the `commands.js` files that lives inside the support folder.
+- **cypress.json** : This is cypress default custom configurations file, at first it is empty but over time we can fill it with important settings that will tune our test suite to our needs. Things like environment variables, security settings, timeout, etc, are defined here.
+
+I also suggest you to explore some of the example spec files. They can give you really good insight on how to write test cases.
+
+As you write and run your tests other folders and files will be added to the `cypress/` folder. More specifically, the `cypress/screenshots` and `cypress/videos` folders.
+
+When you are ready, go ahead and delete the `cypress/integration/examples` folder and the `cypress/fixtures/example.json` file. We want to have a clean structure for our project.
+
+Now, add the following lines to your `cypress.json` file:
+```json
+{
+  "baseUrl": "http://localhost:3000",
+  "viewportHeight": 1000
+}
+```
+
+You can learn more about the config options here: [Configuration](https://docs.cypress.io/guides/references/configuration.html#Options).
+
+With this the setup for this simple test suite, is done. Now we are ready to start writing our test cases.
+
+### **Writing test cases**
