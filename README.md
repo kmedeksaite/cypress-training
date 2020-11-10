@@ -83,6 +83,155 @@ Now, add the following lines to your `cypress.json` file:
 
 You can learn more about the config options here: [Configuration](https://docs.cypress.io/guides/references/configuration.html#Options).
 
-With this the setup for this simple test suite, is done. Now we are ready to start writing our test cases.
+Now the setup for this simple test suite is done. We are ready to start writing our test cases.
 
 ### **Writing test cases**
+
+We will start by creating a new file inside the `cypress/integration` folder. You can name whatever you want as long as it finishes with `_spec.js`. I will name it `main_spec.js`.
+
+With this new file created, let's think about the features of our app:
+- Users can add add todos
+- Users can mark todos as completed
+- Users can delete todos
+- Todos are saved in the storage (if the page is reloaded no information will be lost.)
+
+We could (and should!) write a test case for each of these features. For the purposes of this training, we will check the storage in each of the three features. In the end, these will be our test cases:
+- **It (the app) should add new todos and persist them in the store.**
+- **It should mark todos as completed and save state in the store.**
+- **It should delete todos and remove them from the store.**
+
+Now that we clearly defined our test cases, we can outline them in our `main_spec.js` file.
+
+```javascript
+/* eslint-disable no-undef */
+
+describe('To-do testing', function () {
+  
+  it('should add new todos and persist them in the storage', function() {});
+
+  it('should mark todos as completed and save state in the store', function() {});
+
+  it('should delete todos and remove it from the store' , function() {});
+
+})
+```
+
+If you have ever written tests in Mocha+Chai or Jest you will notice the similarity. The way you build tests cases in Cypress is essentially the same way you write them in Mocha. The difference is that Cypress add some abstraction on top of it, and a few other features to "drive" the testing in the browser.
+
+Now that we have outlined our test cases, we can begin writing them. An important aspect of these tests is the data that will be used as todos. We can provide this data beforehand by using a fixture file. In the `cypress/fixtures` folder, create a file named `main.json`. Fixtures files can be named anything, but they necessarily need to be JSON file. It is a good practice to give a descriptive name if these fixtures are used across different specs or, if they are only used by one spec file, give them the same name.
+
+Inside the `main.json`, add:
+
+```json
+[
+  "Install cypress",
+  "Set up cypress",
+  "Write fixture file",
+  "Write test cases",
+  "Use UI to run tests",
+  "Run tests in headless mode",
+  "Buy Lucas an Ice Cream"
+]
+```
+
+To use the fixture file, we will add a `before(function () {})` hook to our `main_spec.js`:
+
+```javascript
+/* eslint-disable no-undef */
+describe('To-do testing', function () {
+  
+  before(function () {
+    cy.fixture('main').then(function (data) {
+      this.todos = data; 
+    })
+
+    cy.visit('/');
+  });
+
+  /* 'it' test cases */
+  // ...
+})
+```
+The before hook executes once, before all test cases. Cypress have support for other hooks like `beforeEach`, `after`, `afterEach`, etc.
+
+In order to acces the data of a fixture file, we call the `cy.fixture(filename)` function. This function yields the contents of the file, to access the contents the `.then()` chainable can be used. Cypress functions work similarly to promises. By chaining a `.then()` function we can have access to the data of the fixture an assing it to a global property called `todos`. Hence the reason to favor anonymous functions rather than arrow functions.
+
+Now that we have access to the todo data, we can write the test cases as follows. For more details on the Cypress api, please refer to the documentation. The final test cases should look like this:
+
+```javascript
+/* eslint-disable no-undef */
+describe('To-do testing', function () {
+  before(function () {
+    cy.fixture('main').then(function (data) {
+      this.todos = data; 
+    })
+
+    cy.visit('/');
+  });
+
+  it('should add new todos and persist them in the storage', function() {
+    for (let todo of this.todos) {
+      cy.get('input[name="add-todo"]').type(todo);
+      cy.get('button[type="submit"').click();
+    }
+    
+    cy.get('.todos')
+      .children()
+      .then(function (children) {
+        cy.expect(children.length).to.equal(this.todos.length);
+      });
+
+    cy.reload();
+
+    cy.get('.todos')
+      .children()
+      .then(function (children) {
+        cy.expect(children.length).to.equal(this.todos.length);
+      });
+  });
+
+  it('should mark todos as completed and save state in the store', function() {
+    cy.get('.todo-item label').should('not.have.class', 'striked');
+
+    cy.get('.todo-item input').click({ multiple: true });
+
+    cy.get('.todo-item label').should('have.class', 'striked');
+
+    cy.reload();
+
+    cy.get('.todo-item label').should('have.class', 'striked');
+  });
+
+  it('should delete todos and remove it from the store' , function() {
+    cy.get('.todo-item').should('exist');
+
+    cy.get('.todo-item button').click({ multiple: true });
+
+    cy.get('.todo-item').should('not.exist');
+
+    cy.reload();
+
+    cy.get('.todo-item').should('not.exist');
+  });
+})
+```
+
+With your test cases written, you can finally run then using the Cypress UI by running `npm run cypress` or `yarn cypress`. You can also run your tests in headless mode by running `npm run cy:test` or `yarn cy:test`.
+
+Notice that a new `videos` folder was created in your cypress directory. These are particularly useful when tests fail running in headless mode. By default, any time a test case fails, a screenshot is also taken and saved in a directory called `screenshots`. Try failing a test on purpose to see that.
+
+ ## :writing_hand: Conclusion
+
+ Now that you have a nice introduction to Cypress.io, you ready to start adding it to your front-end projects and developing automated tests suites for your applications.
+
+ There is much to learn yet, how to spoof endpoints, set up deployment integrations, intercepting server responses, and much more. Cypress is a great tool and there is whole lot of resources to help you.
+
+ I hope this training got you excited about automated tests, and got you thiking how you can use this tool to improve the quality of the code that you and your is currently shipping.
+
+ Testing require some investment of time, and it may sound counterproductive at first, but over time it will truly save you time and headache.
+
+ Let me know if I can do anything to help.
+
+ Sincerely,
+
+ [Lucas Castro](https://github.com/lucasamonrc)
