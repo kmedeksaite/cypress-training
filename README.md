@@ -6,7 +6,7 @@
 ## :eyes: Overview
 It is always safer to test our code than to simply assume that everything is working. The price of shipping faulty software is too big compared to the investment of time that testing requires. However, this investment don't need to be greater than necessary. Automated testing is a reliable and efficient way to optimize our time as developers and guarantee that we are always shipping working code to our clients.
 
-In this training, you will learn the first steps of setting up the E2E testing tool [Cypress](https://www.cypress.io/) in your front-end applications. By the end of this session you should feel comfortable installing and working with basic Cypress functionalities, writing simple test cases, and running tests tests on your application.
+In this training, you will learn the first steps of setting up the E2E testing tool [Cypress](https://www.cypress.io/) in your front-end applications. By the end of this session you should feel comfortable installing and working with basic Cypress functionalities, writing simple test cases, and running them against your application.
 
 **Here are a few resources to help get you started:**
  - [Introduction to Cypress](https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.html#Cypress-Can-Be-Simple-Sometimes)
@@ -30,7 +30,7 @@ After you sucessfully cloned your forked repository run: `npm i` or `yarn` (this
 
 ### **Installing and setting up Cypress**
 
-To start the application all you need to do is run `npm start` or `yarn start`. It then will available locally at `http://localhost:3000`. It should look something like this:
+To start the application all you need to do is run `npm start` or `yarn start`. It will be available locally at `http://localhost:3000`. It should look something like this:
 
 ![](./assets/todo-testing.gif)
 
@@ -38,7 +38,7 @@ Now that our app is working, let's focus in setting up cypress. Run `npm i cypre
 
 Cypress is now installed. Now, add these scripts to `package.json`: `"cypress": "cypress open"` and `"cy:test": "cypress run"`. These scripts will make our lives easier when we need to open the Cypress UI or execute tests in headless mode.
 
-After adding the scripts, run `npm run cypress` or `yarn cypress`. There will be a small setup that cypress will arrange for you automatically. After the setup is done you should see a cypress window opened, a new file, and a new folder in your project. You new project structure will be:
+After adding the scripts, run `npm run cypress` or `yarn cypress`. There will be a small setup that cypress will arrange for you automatically. After the setup is done you should see a cypress window opened, a new file, and a new folder in your project. The new project strucure should look like this:
 
 ```
 /
@@ -63,7 +63,7 @@ Cypress add a bunch of example files to help you get started and learn about the
 - **cypress/** : All files related to cypress and its set up will go inside this folder. Think of it as your "tests" folder.
 - **cypress/fixtures** : Here you will put all files that represent "dummy data" that you will stub out for your front-end. These are written in JSON, and are great way to stub informationt that will be used to fill a form, for example.
 - **cypress/integration** : This is where your test cases will go. In cypress tests are called specs, and each spec can contain several test cases.
-- **cypress/plugins** : There are hundreds of plugins that you can install to work with cypress. When you add these plugins to your project you will set up them in files that are kept here.
+- **cypress/plugins** : There are hundreds of plugins that you can install to work with cypress. When you add these plugins to your project you will set them up in files that are kept here.
 - **cypress/support** : Any custom commands or simple abstractions can be written in the `commands.js` files that lives inside the support folder.
 - **cypress.json** : This is cypress default custom configurations file, at first it is empty but over time we can fill it with important settings that will tune our test suite to our needs. Things like environment variables, security settings, timeout, etc, are defined here.
 
@@ -90,7 +90,7 @@ Now the setup for this simple test suite is done. We are ready to start writing 
 We will start by creating a new file inside the `cypress/integration` folder. You can name whatever you want as long as it finishes with `_spec.js`. I will name it `main_spec.js`.
 
 With this new file created, let's think about the features of our app:
-- Users can add add todos
+- Users can add todos
 - Users can mark todos as completed
 - Users can delete todos
 - Todos are saved in the storage (if the page is reloaded no information will be lost.)
@@ -118,7 +118,7 @@ describe('To-do testing', function () {
 
 If you have ever written tests in Mocha+Chai or Jest you will notice the similarity. The way you build tests cases in Cypress is essentially the same way you write them in Mocha. The difference is that Cypress add some abstraction on top of it, and a few other features to "drive" the testing in the browser.
 
-Now that we have outlined our test cases, we can begin writing them. An important aspect of these tests is the data that will be used as todos. We can provide this data beforehand by using a fixture file. In the `cypress/fixtures` folder, create a file named `main.json`. Fixtures files can be named anything, but they necessarily need to be JSON file. It is a good practice to give a descriptive name if these fixtures are used across different specs or, if they are only used by one spec file, give them the same name.
+Now that we have outlined our test cases, we can begin writing them. An important aspect of these tests is the data that will be used as todos. We can provide this data beforehand by using a fixture file. In the `cypress/fixtures` folder, create a file named `main.json`. Fixtures files can be named anything, but they necessarily need to be JSON files. It is a good practice to give a descriptive name if these fixtures are used across different specs or, if they are only used by one spec file, give them the same name.
 
 Inside the `main.json`, add:
 
@@ -154,7 +154,7 @@ describe('To-do testing', function () {
 ```
 The before hook executes once, before all test cases. Cypress have support for other hooks like `beforeEach`, `after`, `afterEach`, etc.
 
-In order to acces the data of a fixture file, we call the `cy.fixture(filename)` function. This function yields the contents of the file, to access the contents the `.then()` chainable can be used. Cypress functions work similarly to promises. By chaining a `.then()` function we can have access to the data of the fixture an assing it to a global property called `todos`. Hence the reason to favor anonymous functions rather than arrow functions.
+In order to acces the data of a fixture file, we call the `cy.fixture(filename)` function. This function yields the contents of the file, to access the contents the `.then()` chainable can be used. Cypress functions work similarly to promises. By chaining a `.then()` function we can have access to the data of the fixture an assign it to a global property called `todos`. Hence the reason to favor anonymous functions rather than arrow functions.
 
 Now that we have access to the todo data, we can write the test cases as follows. For more details on the Cypress api, please refer to the documentation. The final test cases should look like this:
 
@@ -222,16 +222,14 @@ Notice that a new `videos` folder was created in your cypress directory. These a
 
  ## :writing_hand: Conclusion
 
- Now that you have a nice introduction to Cypress.io, you ready to start adding it to your front-end projects and developing automated tests suites for your applications.
+Now that you have a nice introduction to Cypress.io, you ready to start adding it to your front-end projects and developing automated tests suites for your applications.
 
- There is much to learn yet, how to spoof endpoints, set up deployment integrations, intercepting server responses, and much more. Cypress is a great tool and there is whole lot of resources to help you.
+There is much to learn yet, how to spoof endpoints, set up deployment integrations, intercepting server responses, and much more. Cypress is a great tool and there is whole lot of resources to help you.
 
- I hope this training got you excited about automated tests, and got you thiking how you can use this tool to improve the quality of the code that you and your is currently shipping.
+I hope this training got you excited about automated tests, and got you thiking how you can use this tool to improve the quality of the code that you and your is currently shipping. Testing requires some investment of time, and it may sound counterproductive at first, but over time it will truly save you time and headaches.
 
- Testing require some investment of time, and it may sound counterproductive at first, but over time it will truly save you time and headache.
+Let me know if I can do anything to help.
 
- Let me know if I can do anything to help.
+Sincerely,
 
- Sincerely,
-
- [Lucas Castro](https://github.com/lucasamonrc)
+[Lucas Castro](https://github.com/lucasamonrc)
