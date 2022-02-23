@@ -40,5 +40,6 @@
   },
   "devDependencies": {
     "cypress": "^9.5.0"
+
   }
 }
